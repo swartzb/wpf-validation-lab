@@ -66,6 +66,24 @@ namespace wpf_validation_lab
                 }
             }
         }
+        private int _posInt4;
+
+        public int PosInt4
+        {
+            get { return _posInt4; }
+            set
+            {
+                if (value != _posInt4)
+                {
+                    if (value <= 0)
+                    {
+                        throw new ArgumentException("value must be positive");
+                    }
+                    _posInt4 = value;
+                    NotifyPropertyChanged("PosInt4");
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)

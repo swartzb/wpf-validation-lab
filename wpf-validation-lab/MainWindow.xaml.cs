@@ -24,7 +24,7 @@ namespace wpf_validation_lab
 
         public MainWindow()
         {
-            DC = new Model { PosInt1 = 21, PosInt2 = 7, PosInt3 = 23 };
+            DC = new Model { PosInt1 = 21, PosInt2 = 7, PosInt3 = 23, PosInt4 = 3 };
             InitializeComponent();
         }
 
@@ -90,10 +90,35 @@ namespace wpf_validation_lab
             return;
         }
 
-        public object myUpdateSourceExceptionFilterCallback(object bindExpression, Exception exception)
+        public object onUpdateSourceException(object bindExpression, Exception exception)
         {
-            //ValidationError ve = new ValidationError(new ExceptionValidationRule(), bindExpression, null, exception);
-            return exception.Message;
+            var be = (System.Windows.Data.BindingExpression)bindExpression;
+            var rule = be.ParentBinding.ValidationRules.First(x => x is ExceptionValidationRule);
+            ValidationError ve = new ValidationError(rule, be, exception.Message, exception);
+            return ve;
+            //return exception.Message;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            throw new Exception("Thrown Exception");
+        }
+
+        private void ItemError(object sender, ValidationErrorEventArgs e)
+        {
+            if (e.Action == ValidationErrorEventAction.Added)
+            {
+                MessageBox.Show(e.Error.ErrorContent.ToString());
+            }
+        }
+
+        private void tbx4_Error(object sender, ValidationErrorEventArgs e)
+        {
+            if (e.Action == ValidationErrorEventAction.Added)
+            {
+
+            }
+            return;
         }
     }
 }

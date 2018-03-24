@@ -11,13 +11,19 @@
         DataContext="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=DC}"
         FocusManager.FocusedElement="{Binding ElementName=tbx1}">
     <Window.Resources>
-        <Style TargetType="Label">
+        <Style TargetType="Button">
             <Setter Property="Margin"
                     Value="12" />
             <Setter Property="HorizontalAlignment"
-                    Value="Left" />
+                    Value="Center" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Margin"
+                    Value="12" />
         </Style>
         <Style TargetType="TextBox">
+            <EventSetter Event="GotFocus"
+                         Handler="tbx_GotFocus" />
             <Setter Property="Margin"
                     Value="12" />
             <Setter Property="VerticalAlignment"
@@ -44,20 +50,26 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0"
+                <Button Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Content="Throw"
+                        Click="Button_Click" />
+                <Label Grid.Row="1"
                        Grid.Column="0"
                        Content="Positive Integer _1"
                        Target="{Binding ElementName=tbx1}" />
                 <TextBox x:Name="tbx1"
-                         Grid.Row="0"
+                         Grid.Row="1"
                          Grid.Column="1"
-                         GotFocus="tbx_GotFocus"
                          LostFocus="tbx1_LostFocus">
                     <TextBox.Text>
                         <Binding Path="PosInt1"
@@ -65,38 +77,58 @@
                                  UpdateSourceTrigger="Explicit" />
                     </TextBox.Text>
                 </TextBox>
-                <Label Grid.Row="1"
+                <Label Grid.Row="2"
                        Grid.Column="0"
                        Content="Positive Integer _2"
                        Target="{Binding ElementName=tbx2}" />
                 <TextBox x:Name="tbx2"
-                         Grid.Row="1"
-                         Grid.Column="1"
-                         GotFocus="tbx_GotFocus"
-                         LostFocus="tbx2_LostFocus"
-                         >
+                         Grid.Row="2"
+                         Grid.Column="1">
                     <TextBox.Text>
                         <Binding Path="PosInt2"
                                  Mode="TwoWay"
-                                 UpdateSourceTrigger="Explicit"
-                                 ValidatesOnExceptions="True" />
+                                 UpdateSourceTrigger="LostFocus">
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <Label Grid.Row="2"
+                <Label Grid.Row="3"
                        Grid.Column="0"
                        Content="Positive Integer _3"
                        Target="{Binding ElementName=tbx3}" />
                 <TextBox x:Name="tbx3"
-                         Grid.Row="2"
-                         Grid.Column="1"
-                         Validation.Error="tbx2_Error">
+                         Grid.Row="3"
+                         Grid.Column="1">
                     <TextBox.Text>
                         <Binding Path="PosInt3"
                                  Mode="TwoWay"
-                                 UpdateSourceTrigger="Explicit"
-                                 ValidatesOnExceptions="True"
-                                 UpdateSourceExceptionFilter="myUpdateSourceExceptionFilterCallback"
-                                 NotifyOnValidationError="True" />
+                                 UpdateSourceTrigger="LostFocus"
+                                 UpdateSourceExceptionFilter="onUpdateSourceException">
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <Label Grid.Row="4"
+                       Grid.Column="0"
+                       Content="Positive Integer _4"
+                       Target="{Binding ElementName=tbx4}" />
+                <TextBox x:Name="tbx4"
+                         Grid.Row="4"
+                         Grid.Column="1"
+                         Validation.Error="tbx4_Error">
+                    <TextBox.Text>
+                        <Binding Path="PosInt4"
+                                 Mode="TwoWay"
+                                 UpdateSourceTrigger="LostFocus"
+                                 NotifyOnValidationError="True">
+                            <Binding.ValidationRules>
+                                <ExceptionValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
                     </TextBox.Text>
                 </TextBox>
             </Grid>
