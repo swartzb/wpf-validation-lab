@@ -42,18 +42,19 @@
                                     <StackPanel>
                                         <TextBlock>
                                             <TextBlock.Text>
-                                                <Binding Path="(Validation.Errors)/ErrorContent" />
+                                                <Binding Path="(Validation.Errors).CurrentItem.ErrorContent" />
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <Binding Path="(Validation.Errors).CurrentItem.Exception.Message" />
                                             </TextBlock.Text>
                                         </TextBlock>
                                     </StackPanel>
-                                    <!--<Binding RelativeSource="{x:Static RelativeSource.Self}"
-                                         Path="(Validation.Errors)/ErrorContent" />-->
                                 </ToolTip>
                             </Setter.Value>
                         </Setter>
                     </Trigger.Setters>
-                    <!--<Setter Property="ToolTip"
-                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}" />-->
                 </Trigger>
             </Style.Triggers>
         </Style>
