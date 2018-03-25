@@ -31,8 +31,29 @@
             <Style.Triggers>
                 <Trigger Property="Validation.HasError"
                          Value="true">
-                    <Setter Property="ToolTip"
-                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}" />
+                    <Trigger.Setters>
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
+                                <ToolTip>
+                                    <ToolTip.DataContext>
+                                        <Binding RelativeSource="{x:Static RelativeSource.Self}"
+                                                 Path="PlacementTarget" />
+                                    </ToolTip.DataContext>
+                                    <StackPanel>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <Binding Path="(Validation.Errors)/ErrorContent" />
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <!--<Binding RelativeSource="{x:Static RelativeSource.Self}"
+                                         Path="(Validation.Errors)/ErrorContent" />-->
+                                </ToolTip>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger.Setters>
+                    <!--<Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)/ErrorContent}" />-->
                 </Trigger>
             </Style.Triggers>
         </Style>
