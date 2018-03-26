@@ -37,17 +37,17 @@
                                 <ToolTip>
                                     <ToolTip.DataContext>
                                         <Binding RelativeSource="{x:Static RelativeSource.Self}"
-                                                 Path="PlacementTarget.(Validation.Errors).CurrentItem" />
+                                                 Path="PlacementTarget.(Validation.Errors).CurrentItem.ErrorContent" />
                                     </ToolTip.DataContext>
                                     <StackPanel>
                                         <TextBlock FontWeight="Bold">
                                             <TextBlock.Text>
-                                                <Binding Path="ErrorContent" />
+                                                <Binding Path="ExTypeName" />
                                             </TextBlock.Text>
                                         </TextBlock>
                                         <TextBlock>
                                             <TextBlock.Text>
-                                                <Binding Path="Exception.Message" />
+                                                <Binding Path="ExMessage" />
                                             </TextBlock.Text>
                                         </TextBlock>
                                     </StackPanel>

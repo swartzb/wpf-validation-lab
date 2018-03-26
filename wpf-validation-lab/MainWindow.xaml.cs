@@ -95,7 +95,8 @@ namespace wpf_validation_lab
             var be = (System.Windows.Data.BindingExpression)bindExpression;
             var rule = be.ParentBinding.ValidationRules.First(x => x is ExceptionValidationRule);
             ValidationError ve = new ValidationError(rule, be, exception.GetType().Name, exception);
-            return ve;
+            var errorContent = new { ExTypeName = exception.GetType().Name, ExMessage = exception.Message };
+            return errorContent;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
