@@ -34,6 +34,28 @@
                     <Trigger.Setters>
                         <Setter Property="ToolTip">
                             <Setter.Value>
+                                <Binding RelativeSource="{x:Static RelativeSource.Self}"
+                                         Path="(Validation.Errors).CurrentItem.ErrorContent" />
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger.Setters>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="fancyValidatingTextBox"
+               TargetType="TextBox">
+            <EventSetter Event="GotFocus"
+                         Handler="tbx_GotFocus" />
+            <Setter Property="Margin"
+                    Value="12" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError"
+                         Value="true">
+                    <Trigger.Setters>
+                        <Setter Property="ToolTip">
+                            <Setter.Value>
                                 <ToolTip>
                                     <ToolTip.DataContext>
                                         <Binding RelativeSource="{x:Static RelativeSource.Self}"
@@ -120,7 +142,8 @@
                        Grid.Column="0"
                        Content="Positive Integer _3"
                        Target="{Binding ElementName=tbx3}" />
-                <TextBox x:Name="tbx3"
+                <TextBox Style="{StaticResource fancyValidatingTextBox}"
+                         x:Name="tbx3"
                          Grid.Row="3"
                          Grid.Column="1">
                     <TextBox.Text>
